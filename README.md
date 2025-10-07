@@ -1,89 +1,71 @@
-# 🔁 8-Channel Relay Module
+#  8 Channel Relay Module
 
-## 📘 Project Overview
-This project presents the design of an **8-Channel Relay Module**, a versatile switching interface for controlling multiple AC or DC devices using microcontrollers such as **Arduino, ESP32, STM32**, or **Raspberry Pi**.  
-Each relay channel can be triggered independently to operate high-power devices safely from low-voltage logic signals.
+## 🔌 Project Overview
+This project demonstrates the design of an **8 Channel Relay Driver Board** capable of controlling **multiple AC/DC loads** through microcontrollers like **Arduino, ESP32, or Raspberry Pi**.  
+Each relay can be triggered individually, allowing automation of lights, fans, and other appliances.
 
 ---
 
 ## 📷 Project Images
 
-| PCB Routing (Top View) | Schematic (KiCad) | 3D View |
-|------------------------|-------------------|---------|
-| ![PCB Routing](relay_routing.png) | ![Schematic](relay_schematic.png) | ![3D View](relay_3d.png) |
-
-> 📝 Replace the above filenames with your actual image names (e.g., `Screenshot 2025-10-07 215300.png`).
+| PCB Layout | Schematic | 3D View |
+|-------------|------------|---------|
+| ![PCB Layout](8channel_relay_card/Screenshot%202025-10-07%20200148.png) | ![Schematic](8channel_relay_card/Screenshot%202025-10-07%20200225.png) | ![3D View](8channel_relay_card/8channel_relay_card.png) |
 
 ---
 
-## ⚙ Circuit Description
+## ⚙ Circuit Working
 
-| Section | Components | Description |
-|----------|-------------|-------------|
-| **Input Interface** | Header pins (IN1–IN8, VCC, GND) | Connects logic signals from microcontroller |
-| **Driver Section** | Transistor array / ULN2803 | Amplifies logic-level signals to drive relay coils |
-| **Relay Section** | 8× SPDT Relays (5V or 12V type) | Switches AC or DC loads |
-| **Indicator LEDs** | 8× LEDs with resistors | Displays relay ON/OFF status |
-| **Power Section** | JD-VCC, VCC, GND headers | Separate power for relay coils and logic (optional isolation) |
-| **Output Terminals** | 3-pin screw connectors (NO, COM, NC) | Connects external devices to be controlled |
+| Stage | Component | Function |
+|--------|------------|-----------|
+| **Input Control** | Signal Pins (IN1–IN8) | Control each relay channel via Arduino or ESP32 |
+| **Relay Driver** | Transistors / ULN2803 | Acts as a switching driver between microcontroller and relay |
+| **Relays** | 8× SPDT (5V or 12V) | Switch AC/DC loads up to 10A |
+| **Indicator LEDs** | 8 LEDs | Indicate active relay channels |
+| **Power Section** | JD-VCC, VCC, GND Pins | Provides isolated power for relay coils and logic |
 
 ---
 
 ## ✅ Features
 
-- 8 independent relay control channels  
-- **Opto-isolated inputs** for safety (if applicable)  
-- Compatible with **3.3V or 5V logic systems**  
-- **Active LOW** or **Active HIGH** configurable inputs  
-- **LED indicators** for each relay  
-- Supports both **AC and DC loads**  
-- Compact PCB layout, ideal for automation projects  
+- **8 independent relay channels**
+- **Optocoupler / transistor isolation** for safety
+- **LED indicators** for each channel
+- **Screw terminal outputs** for easy load connection
+- Compatible with **Arduino, ESP32, Raspberry Pi, and STM32**
 
 ---
 
 ## 🧾 Components List
 
-| Component | Value / Type | Quantity |
-|-----------|---------------|----------|
-| Relays | 5V / 12V SPDT | 8 |
-| Driver IC / Transistors | ULN2803 / BC547 | 1 / 8 |
-| Diodes | 1N4007 (Flyback protection) | 8 |
-| LEDs | 5mm Red / Green | 8 |
-| Resistors | 1kΩ / 2.2kΩ | 8–16 |
-| Screw Terminals | 3-Pin | 8 |
-| Header Pins | 1×10 / 1×8 | 1 |
-| Power Connector | JD-VCC, VCC, GND | 1 |
+| Component | Specification | Quantity |
+|-----------|----------------|-----------|
+| Relays | SPDT, 5V or 12V, 10A | 8 |
+| Transistor / Driver IC | ULN2803 / BC547 | 8 / 1 |
+| Resistors | 1kΩ–10kΩ | As required |
+| Indicator LEDs | Red | 8 |
+| Screw Terminals | 2-Pin / 3-Pin | 8 |
+| Input Header | 10-Pin Male Header | 1 |
+| Power Supply Pins | JD-VCC, VCC, GND | 1 set |
 
 ---
 
-## 🔌 Working Principle
-1. **Signal Input:** A low or high logic signal (depending on configuration) is sent from the microcontroller to each channel input (IN1–IN8).  
-2. **Driver Activation:** The transistor or driver IC amplifies the signal to energize the corresponding relay coil.  
-3. **Relay Operation:** Energized coils switch the contacts between **Normally Open (NO)** and **Normally Closed (NC)** terminals.  
-4. **Load Switching:** The connected AC/DC devices are turned ON or OFF as per the relay state.  
-5. **Indication:** Each LED glows when its respective relay is activated.
+## ⚡ Applications
+
+- **Home automation systems**
+- **Industrial control**
+- **Smart IoT devices**
+- **Multiple appliance switching**
+- **Arduino and ESP32 projects**
 
 ---
 
-## 🧠 Interfacing with Arduino (Example Code)
+## 🧑‍💻 Author
 
-```cpp
-// Example: Sequential relay control
-int relayPins[8] = {2,3,4,5,6,7,8,9};
-bool activeLow = true;
+**Bhargav Ram**  
+Electronics and Communication Engineering Student  
+Passionate about **Embedded Systems | IoT | PCB Design**
 
-void setup() {
-  for (int i=0; i<8; i++) {
-    pinMode(relayPins[i], OUTPUT);
-    digitalWrite(relayPins[i], activeLow ? HIGH : LOW);
-  }
-}
+---
 
-void loop() {
-  for (int i=0; i<8; i++) {
-    digitalWrite(relayPins[i], activeLow ? LOW : HIGH);
-    delay(300);
-    digitalWrite(relayPins[i], activeLow ? HIGH : LOW);
-    delay(200);
-  }
-}
+⭐ *If you like this project, give it a star on GitHub and share your feedback!*
